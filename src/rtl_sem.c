@@ -10,11 +10,17 @@
 #define SEM_R	0400
 #define SEM_W	0200
 
+#if defined(__GNU_LIBRARY__) && !defined(_SEM_SEMUN_UNDEFINED)
+/* union semun is defined by including <sys/sem.h> */
+#else
+/* according to X/OPEN we have to define it ourselves */
 union semun {
-	int val;
-	struct semid_ds *buf;
-	unsigned short *array;
+	int val;                    /* value for SETVAL */
+	struct semid_ds *buf;       /* buffer for IPC_STAT, IPC_SET */
+	unsigned short int *array;  /* array for GETALL, SETALL */
+	struct seminfo *__buf;      /* buffer for IPC_INFO */
 };
+#endif
 
 int rtl_sem_init(int n)
 {
@@ -49,7 +55,7 @@ int rtl_sem_p(int id)
 {
 	struct sembuf sem_b;
 	sem_b.sem_num = 0;
-	sem_b.sem_op = -1;	/* P(v) */
+	sem_b.sem_op = -1;
 	sem_b.sem_flg = SEM_UNDO;
 
 	if (semop(id, &sem_b, 1) == -1)
@@ -64,7 +70,7 @@ int rtl_sem_v(int id)
 	struct sembuf sem_b;
 
 	sem_b.sem_num = 0;
-	sem_b.sem_op = 1;	/* V(v) */
+	sem_b.sem_op = 1;
 	sem_b.sem_flg = SEM_UNDO;
 
 	if (semop(id, &sem_b, 1) == -1)
