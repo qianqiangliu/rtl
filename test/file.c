@@ -58,9 +58,9 @@ static void foo2(void)
 
 static void foo3(void)
 {
-	printf("local path = %s\n", rtl_file_path_pwd());
-	printf("suffix = %s\n", rtl_file_path_suffix(rtl_file_path_pwd()));
-	printf("prefix = %s\n", rtl_file_path_prefix(rtl_file_path_pwd()));
+	printf("local path = %s\n", rtl_file_get_pwd_path());
+	printf("suffix = %s\n", rtl_file_get_path_suffix(rtl_file_get_pwd_path()));
+	printf("prefix = %s\n", rtl_file_get_path_prefix(rtl_file_get_pwd_path()));
 }
 
 int main(int argc, char **argv)

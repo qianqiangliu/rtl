@@ -68,8 +68,8 @@ struct rtl_file_systat *rtl_file_get_systat(const char *path);
 int rtl_file_sync(struct rtl_file *file);
 off_t rtl_file_seek(struct rtl_file *file, off_t offset, int whence);
 struct rtl_rtl_file_systat *file_get_systat(const char *path);
-char *rtl_file_path_pwd(void);
-char *rtl_file_path_suffix(char *path);
-char *rtl_file_path_prefix(char *path);
+char *rtl_file_get_pwd_path(void);
+char *rtl_file_get_path_suffix(char *path);
+char *rtl_file_get_path_prefix(char *path);
 
 #endif /* _RTL_FILE_H_ */

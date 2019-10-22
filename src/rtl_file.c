@@ -216,7 +216,7 @@ struct rtl_file_systat *rtl_file_get_systat(const char *path)
 	return fi;
 }
 
-char *rtl_file_path_pwd(void)
+char *rtl_file_get_pwd_path(void)
 {
 	char *tmp = getcwd(local_path, sizeof(local_path));
 	if (!tmp) {
@@ -225,12 +225,12 @@ char *rtl_file_path_pwd(void)
 	return tmp;
 }
 
-char *rtl_file_path_suffix(char *path)
+char *rtl_file_get_path_suffix(char *path)
 {
 	return basename(path);
 }
 
-char *rtl_file_path_prefix(char *path)
+char *rtl_file_get_path_prefix(char *path)
 {
 	return dirname(path);
 }
