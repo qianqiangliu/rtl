@@ -21,7 +21,7 @@ int add(struct rtl_list_head *head, const char *name, int age)
 	strncpy(s->name, name, sizeof(s->name));
 	s->age = age;
 
-	rtl_list_add(&s->list, head);
+	rtl_list_add_tail(&s->list, head);
 
 	return 0;
 }
@@ -63,7 +63,9 @@ int main()
 	add(&head, "jacky", 25);
 	add(&head, "tom", 13);
 
-	struct student *s;
+	struct student *s = rtl_list_entry(head.next, struct student, list);
+	printf("name: %s, age: %d\n", s->name, s->age);
+
 	s = find(&head, "jacky");
 
 	if (s) {
